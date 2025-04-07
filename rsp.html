@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Rock Scissor Paper</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="rsp.css"/>
+  <title>Rock Paper Scissors</title>
 </head>
+<body>
+  <header>
+    <h1>Rock Paper Scissors</h1>
+  </header>
+
+  <div class="game-container">
+    <div class="hand-zone">
+      <div id="player-hand" class="hand">❓</div>
+      <div id="computer-hand" class="hand">❓</div>
+    </div>
+
+    <div class="choices">
+      <button onclick="play('rock')">✊</button>
+      <button onclick="play('paper')">✋</button>
+      <button onclick="play('scissors')">✌</button>
+    </div>
+
+    <div class="results">
+      <h2 id="result">Make your choice !</h2>
+    </div>
+  </div>
+
+  <footer>
+    <p><a href="game.html">← Retour au menu</a></p>
+  </footer>
+
+  <script src="rsp.js"></script>
+</body>
+</html>

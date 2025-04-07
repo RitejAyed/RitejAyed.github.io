@@ -7,12 +7,36 @@
 	<title>Game Launcher</title>
 </head>
 <body>
-    <h1>Game Launcher</h1>
-    <div class="game-buttons">
-        <button onclick="location.href='tic-tac-toe.html'">Play Tic-Tac-Toe</button>
-        <button onclick="location.href='rsp.html'">Play Rock-Paper-Scissors</button>
-        <button onclick="location.href='memory_card_game.html'">Play the memory card game</button>
-        <button onclick="location.href='about.html'">About Us</button>
+    <header>
+        <h1>Game Launcher</h1>
+    </header>
+    <div id="launcher">
+        <button onclick="location.href='tic-tac-toe.html'">
+            <img src="TTT2.png" alt="Tic-Tac-Toe">
+            Play Tic-Tac-Toe
+        </button>
+        <button onclick="location.href='rsp.html'">
+            <img src="rps.avif" alt="Rock-Paper-Scissors">
+            Play Rock-Paper-Scissors
+        </button>
+        <button onclick="location.href='memory.html'">
+            <img src="memory.jpeg" alt="Memory Game">
+            Play Memory Game
+        </button>
     </div>
+    <div id="menuButton" class="menu-tab">☰</div>
+    <div id="sidebar" class="sidebar">
+        <div class= list>
+            <a href="#">Scores</a>
+            <a href="#">Account</a>
+        </div>
+        <div id= "about"> 
+            <button onclick="location.href='about.html'">About Us</button>
+        </div>
+    </div>
+        <script src="game.js"></script>
+    <footer>
+            
+    </footer>
 </body>
 </html>
