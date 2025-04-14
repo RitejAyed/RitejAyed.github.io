@@ -35,7 +35,6 @@ body::after {
   z-index: 999;  /* Place above all other elements */
 }
 
-/* Create starfield background */
 .stars {
   position: fixed;  /* Fix position regardless of scroll */
   top: 0;  /* Position at top */
@@ -44,15 +43,16 @@ body::after {
   height: 100%;  /* Full height */
   z-index: -1;  /* Place behind other elements */
   overflow: hidden;  /* Hide overflow */
-  background-image: radial-gradient(white, rgba(255,255,255,0) 2px), radial-gradient(white, rgba(255,255,255,0) 1px);  /* Create two sizes of star dots */
-  background-size: 50px 50px, 30px 30px;  /* Set spacing between stars */
-  background-position: 0 0, 25px 25px;  /* Offset second star pattern */
+  background-image: url('back.jpg');  /* Set background image */
+  background-size: cover;  /* Cover the entire area */
+  background-position: center;  /* Center the background image */
 }
+
 
 /* Header styling */
 header {
   padding: 20px;  /* Add internal spacing */
-  background: linear-gradient(to bottom, #000088, #000055);  /* Blue gradient background */
+  background: linear-gradient(#000088, #000055);  /* Blue gradient background */
   border-bottom: 3px solid var(--secondary-color);  /* Cyan bottom border */
   margin-bottom: 20px;  /* Add space below header */
 }

@@ -1,342 +1,210 @@
-// Define global object to store references to all screen elements in the game
+// Récupérer les éléments DOM principaux
 const screens = {
   intro: document.getElementById('intro-screen'),
   mode: document.getElementById('mode-screen'),
   game: document.getElementById('game-screen'),
   winner: document.getElementById('winner-screen')
 };
+const cells = document.querySelectorAll('.board-cell');
+const opponentLabel = document.getElementById('opponent-label');
+const winnerIcon = document.querySelector('.winner-icon');
+const winnerText = document.querySelector('.winner-text');
+const winningLine = document.getElementById('winning-line');
+let isVsComputer = true;
 
-// Cache frequently used DOM elements to improve performance
-const cells = document.querySelectorAll('.board-cell');  // All game board cells
-const opponentLabel = document.getElementById('opponent-label');  // Label showing opponent type
-const winnerIcon = document.querySelector('.winner-icon');  // Icon showing winner (X/O)
-const winnerText = document.querySelector('.winner-text');  // Text showing winner message
-const winningLine = document.getElementById('winning-line');  // Line drawn through winning cells
-let isVsComputer = true;  // Game mode flag - true for Player vs Computer, false for Player vs Player
-
-// Configurations for drawing the winning line through matched cells
-// Each config describes where and how to position the line for different win patterns
-const winningConfigs = [
-  { indices: [0, 1, 2], type: 'horizontal', top: '16.7%' },  // Top row
-  { indices: [3, 4, 5], type: 'horizontal', top: '50%' },    // Middle row
-  { indices: [6, 7, 8], type: 'horizontal', top: '83.3%' },  // Bottom row
-  { indices: [0, 3, 6], type: 'vertical', left: '16.7%' },   // Left column
-  { indices: [1, 4, 7], type: 'vertical', left: '50%' },     // Middle column
-  { indices: [2, 5, 8], type: 'vertical', left: '83.3%' },   // Right column
-  { indices: [0, 4, 8], type: 'diagonal-right' },            // Diagonal top-left to bottom-right
-  { indices: [2, 4, 6], type: 'diagonal-left' }              // Diagonal top-right to bottom-left
-];
-
-/**
- * Changes the active screen to the specified one
- * @param {string} screenId - ID of the screen to show ('intro', 'mode', 'game', or 'winner')
- */
+// Passer d'un écran à l'autre
 function showScreen(screenId) {
-  // Hide all screens first by removing the 'active' class
-  Object.values(screens).forEach(screen => {
-    screen.classList.remove('active');
-  });
-
-  // Show the requested screen by adding the 'active' class
+  Object.values(screens).forEach(screen => screen.classList.remove('active'));
   screens[screenId].classList.add('active');
 }
 
-/**
- * Shows the mode selection screen
- */
-function showModeScreen() {
-  showScreen('mode');
-}
-
-/**
- * Initializes and starts the Tic-Tac-Toe game
- * Sets up the game board and game logic
- * @returns {Object} Game controller with exposed methods
- */
+// Fonction de démarrage du jeu - basée sur le modèle du professeur
 function startTicTacToe() {
-  // Configure the game board grid layout
+  // Configurer le plateau comme demandé par le professeur
   const board = document.querySelector(".board-container");
   board.style.display = "grid";
-  board.style.gridTemplateColumns = "repeat(3, 1fr)";  // Create 3x3 grid
+  board.style.gridTemplateColumns = "repeat(3, 1fr)";
 
-  // Initialize the game state
-  let gameState = ["", "", "", "", "", "", "", "", ""];  // Empty cells
-  let currentPlayer = "O";  // Start with O (player) to match UI design
-  let gameActive = true;  // Flag to track if game is ongoing
-
-  // Clear any previous game state from the UI
-  cells.forEach(cell => {
-    cell.className = 'board-cell';  // Remove X or O classes
-  });
-
-  // Hide the winning line from any previous game
+  // État du jeu comme demandé par le professeur
+  let gameState = ["", "", "", "", "", "", "", "", ""];
+  let currentPlayer = "O";  // Le joueur commence (O)
+  let gameActive = true;
+  
+  // Nettoyer le plateau
+  cells.forEach(cell => cell.className = 'board-cell');
   winningLine.style.display = 'none';
 
-  /**
-   * Checks if there's a winner or draw based on current game state
-   * @returns {Object|null} Winner info or null if game should continue
-   */
+  // Vérifier s'il y a un gagnant - suivant la méthode du professeur
   function checkWinner() {
-    // All possible winning patterns (same as winningConfigs indices)
     const winPatterns = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
-      [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
-      [0, 4, 8], [2, 4, 6]              // Diagonals
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
     ];
 
-    // Check each possible winning pattern
+    // Parcourir tous les patterns gagnants
     for (let i = 0; i < winPatterns.length; i++) {
-      const [a, b, c] = winPatterns[i];  // Destructure the indices to check
-      // If all three cells have the same non-empty value, we have a winner
-      if (gameState[a] && gameState[a] === gameState[b] && gameState[b] === gameState[c]) {
-        return {
-          winner: gameState[a],  // Either "X" or "O"
-          winConfig: winningConfigs[i]  // Configuration for drawing the winning line
-        };
+      const [a, b, c] = winPatterns[i];
+      if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+        return { winner: gameState[a], pattern: i };
       }
     }
 
-    // If no winner but board is full, it's a draw
+    // Match nul?
     if (!gameState.includes("")) {
       return { winner: "draw" };
     }
 
-    // Otherwise, game continues
     return null;
   }
 
-  /**
-   * Handles player's click on a cell
-   * @param {HTMLElement} cell - The clicked cell
-   */
-  function handleCellClick(cell) {
-    if (!gameActive) return;  // Ignore clicks if game is over
+  // Montrer qui a gagné
+  function handleWin(result) {
+    gameActive = false;
 
-    const index = cell.getAttribute('data-index');  // Get cell position (0-8)
-
-    // Ignore if cell is already filled
-    if (gameState[index] !== '') return;
-
-    // In computer mode, prevent clicking during computer's turn
-    if (isVsComputer && currentPlayer === 'X') return;
-
-    // Update game state and UI
-    gameState[index] = currentPlayer;  // Mark the cell with current player's symbol
-    cell.classList.add(currentPlayer.toLowerCase());  // Add the visual class (x or o)
-
-    // Check if this move resulted in a win or draw
-    const result = checkWinner();
-    if (result) {
-      handleGameEnd(result);  // Handle game over
-      return;
-    }
-
-    // Switch turns
-    currentPlayer = currentPlayer === 'O' ? 'X' : 'O';
-
-    // If in computer mode and it's computer's turn, make computer move after delay
-    if (isVsComputer && currentPlayer === 'X') {
-      setTimeout(computerMove, 500);  // Half-second delay for better UX
-    }
-  }
-
-  /**
-   * Handles the computer's move in single player mode
-   */
-  function computerMove() {
-    if (!gameActive) return;  // Safety check to prevent moves after game ends
-
-    // Find all empty cells
-    const emptyCells = [];
-    gameState.forEach((value, index) => {
-      if (value === '') {
-        emptyCells.push(index);
-      }
-    });
-
-    if (emptyCells.length === 0) return;  // No moves possible
-
-    // Choose a random empty cell
-    const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-    const cell = document.querySelector(`.board-cell[data-index="${randomIndex}"]`);
-
-    // Update game state and UI for computer's move
-    gameState[randomIndex] = currentPlayer;  // Mark with X (computer's symbol)
-    cell.classList.add(currentPlayer.toLowerCase());  // Add visual class
-
-    // Check if computer won
-    const result = checkWinner();
-    if (result) {
-      handleGameEnd(result);
-      return;
-    }
-
-    // Switch back to player
-    currentPlayer = 'O';
-  }
-
-  /**
-   * Displays the winning line on the board
-   * @param {Object} config - Line configuration (type, position)
-   */
-  function showWinningLine(config) {
-    winningLine.style.display = 'block';  // Make the line visible
-
-    // Position and style the line based on which pattern won
-    if (config.type === 'horizontal') {
-      // Horizontal line across a row
-      winningLine.style.width = '100%';
-      winningLine.style.height = '4px';
-      winningLine.style.top = config.top;
-      winningLine.style.left = '0';
-      winningLine.style.transform = 'none';
-    } else if (config.type === 'vertical') {
-      // Vertical line down a column
-      winningLine.style.width = '4px';
-      winningLine.style.height = '100%';
-      winningLine.style.top = '0';
-      winningLine.style.left = config.left;
-      winningLine.style.transform = 'none';
-    } else if (config.type === 'diagonal-right') {
-      // Diagonal from top-left to bottom-right
-      winningLine.style.width = '140%';  // Longer to reach corner to corner
-      winningLine.style.height = '4px';
-      winningLine.style.top = '50%';
-      winningLine.style.left = '-20%';  // Offset to center the line
-      winningLine.style.transform = 'rotate(45deg)';
-    } else if (config.type === 'diagonal-left') {
-      // Diagonal from top-right to bottom-left
-      winningLine.style.width = '140%';  // Longer to reach corner to corner
-      winningLine.style.height = '4px';
-      winningLine.style.top = '50%';
-      winningLine.style.left = '-20%';  // Offset to center the line
-      winningLine.style.transform = 'rotate(-45deg)';
-    }
-  }
-
-  /**
-   * Handles the end of the game (win or draw)
-   * @param {Object} result - Result information (winner, win configuration)
-   */
-  function handleGameEnd(result) {
-    gameActive = false;  // Stop the game
-
-    if (result.winner === 'draw') {
-      // It's a draw
-      showWinnerScreen('draw');
+    if (result.winner === "draw") {
+      winnerText.textContent = "DRAW!";
+      winnerIcon.className = "winner-icon";
     } else {
-      // Someone won, show the winning line
-      showWinningLine(result.winConfig);
-      // Show winner screen after a delay to let player see the winning line
+      // Dessiner la ligne gagnante
+      winningLine.style.display = "block";
+      
+      // Configurer la ligne selon le pattern gagnant
+      const i = result.pattern;
+      if (i < 3) { // Horizontal
+        winningLine.style.width = "100%";
+        winningLine.style.height = "4px";
+        winningLine.style.top = i === 0 ? "16.7%" : i === 1 ? "50%" : "83.3%";
+        winningLine.style.left = "0";
+        winningLine.style.transform = "none";
+      } else if (i < 6) { // Vertical
+        winningLine.style.width = "4px";
+        winningLine.style.height = "100%";
+        winningLine.style.top = "0";
+        winningLine.style.left = (i - 3) === 0 ? "16.7%" : (i - 3) === 1 ? "50%" : "83.3%";
+        winningLine.style.transform = "none";
+      } else { // Diagonal
+        winningLine.style.width = "140%";
+        winningLine.style.height = "4px";
+        winningLine.style.top = "50%";
+        winningLine.style.left = "-20%";
+        winningLine.style.transform = i === 6 ? "rotate(45deg)" : "rotate(-45deg)";
+      }
+      
+      // Afficher le gagnant après un délai
       setTimeout(() => {
-        showWinnerScreen(result.winner);
+        const playerWin = result.winner === "O";
+        winnerText.textContent = playerWin ? "PLAYER WINS!" : (isVsComputer ? "COMPUTER WINS!" : "PLAYER WINS!");
+        winnerIcon.className = "winner-icon " + result.winner.toLowerCase();
+        
+        // Effet de confetti
+        try {
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+          });
+        } catch (e) {
+          console.error("Confetti error:", e);
+        }
+        
+        showScreen("winner");
       }, 1000);
     }
   }
 
-  /**
-   * Shows the winner screen with appropriate message
-   * @param {string} winner - 'X', 'O', or 'draw'
-   */
-  function showWinnerScreen(winner) {
-    if (winner === 'draw') {
-      // Show draw message
-      winnerText.textContent = 'DRAW!';
-      winnerIcon.className = 'winner-icon';  // No specific icon for draw
+  // Tour de l'ordinateur (très simple)
+  function computerMove() {
+    if (!gameActive) return;
+    
+    // Trouver les cases vides
+    const emptyCells = [];
+    gameState.forEach((val, idx) => {
+      if (val === "") emptyCells.push(idx);
+    });
+    
+    if (emptyCells.length === 0) return;
+    
+    // Jouer au hasard
+    const randomIdx = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    gameState[randomIdx] = currentPlayer;
+    cells[randomIdx].classList.add(currentPlayer.toLowerCase());
+    
+    // Vérifier s'il y a un gagnant
+    const result = checkWinner();
+    if (result) {
+      handleWin(result);
     } else {
-      // Show winner message - adapt based on game mode
-      winnerText.textContent = `${winner === 'O' ? 'PLAYER' : isVsComputer ? 'COMPUTER' : 'PLAYER 2'} WINS!`;
-      winnerIcon.className = `winner-icon ${winner.toLowerCase()}`;  // Add x or o class to icon
-
-      // Celebrate with confetti animation
-      try {
-        confetti({
-          particleCount: 100,  // Number of confetti pieces
-          spread: 70,          // How spread out the confetti is
-          origin: { y: 0.6 }   // Start position (from top of screen)
-        });
-      } catch (e) {
-        console.error('Confetti error:', e);  // Log error if confetti fails
-      }
+      currentPlayer = "O";
     }
-
-    // Show the winner screen
-    showScreen('winner');
   }
 
-  // Add click event listeners to all cells on the board
-  cells.forEach(cell => {
-    cell.addEventListener('click', () => handleCellClick(cell));
+  // Gérer les clics sur les cellules
+  function handleCellClick(idx) {
+    if (!gameActive || gameState[idx] !== "" || (isVsComputer && currentPlayer === "X")) return;
+    
+    // Jouer le coup
+    gameState[idx] = currentPlayer;
+    cells[idx].classList.add(currentPlayer.toLowerCase());
+    
+    // Vérifier s'il y a un gagnant
+    const result = checkWinner();
+    if (result) {
+      handleWin(result);
+      return;
+    }
+    
+    // Changer de joueur
+    currentPlayer = currentPlayer === "O" ? "X" : "O";
+    
+    // Tour de l'ordinateur?
+    if (isVsComputer && currentPlayer === "X") {
+      setTimeout(computerMove, 700);
+    }
+  }
+  
+  // Associer les événements de clic
+  cells.forEach((cell, index) => {
+    cell.onclick = () => handleCellClick(index);
   });
-
-  // Show the game screen
-  showScreen('game');
-
-  // Return an object with methods that can be called from outside
+  
+  showScreen("game");
+  
+  // Pour réinitialiser le jeu
   return {
     resetGame: function() {
-      // Reset all game state variables
       gameState = ["", "", "", "", "", "", "", "", ""];
-      currentPlayer = "O";  // Always start with player O
+      currentPlayer = "O";
       gameActive = true;
-
-      // Reset the UI
-      cells.forEach(cell => {
-        cell.className = 'board-cell';  // Remove X or O classes
-      });
-
-      // Hide winning line
-      winningLine.style.display = 'none';
-      
-      // Show the game screen
-      showScreen('game');
+      cells.forEach(cell => cell.className = "board-cell");
+      winningLine.style.display = "none";
+      showScreen("game");
     }
   };
 }
 
-/**
- * Initialize the game and set up all event listeners
- */
-function init() {
-  let gameController;  // Will hold the game controller returned by startTicTacToe
-
-  // Set up the start button to show the mode selection screen
-  document.getElementById('start-button').addEventListener('click', showModeScreen);
-
-  // Set up Player vs Computer mode button
-  document.getElementById('player-vs-computer').addEventListener('click', () => {
-    isVsComputer = true;  // Set game mode to vs computer
-    opponentLabel.textContent = 'COMPUTER';  // Update label
-    gameController = startTicTacToe();  // Start the game
-  });
-
-  // Set up Player vs Player mode button
-  document.getElementById('player-vs-player').addEventListener('click', () => {
-    isVsComputer = false;  // Set game mode to vs player
-    opponentLabel.textContent = 'PLAYER 2';  // Update label
-    gameController = startTicTacToe();  // Start the game
-  });
-
-  // Set up the play again button on winner screen
-  document.getElementById('play-again').addEventListener('click', () => {
-    if (gameController) gameController.resetGame();
-  });
-
-  // Set up the restart button during gameplay
-  document.getElementById('restart-button').addEventListener('click', () => {
-    if (gameController) gameController.resetGame();
-  });
-
-  // Set up the return to mode selection button
-  document.getElementById('menu-return').addEventListener('click', () => {
-    showModeScreen();
-  });
-
-  // Set up the main menu button to return to game selection
-  document.getElementById('menu-button').addEventListener('click', () => {
-    window.location.href = 'game.html';  // Go back to main games page
-  });
-}
-
-// Initialize the game when the DOM is fully loaded
-window.addEventListener('DOMContentLoaded', init);
+// Initialisation principale
+window.addEventListener("DOMContentLoaded", function() {
+  let game;
+  
+  // Configuration des boutons
+  document.getElementById("start-button").onclick = () => showScreen("mode");
+  
+  document.getElementById("player-vs-computer").onclick = () => {
+    isVsComputer = true;
+    opponentLabel.textContent = "COMPUTER";
+    game = startTicTacToe();
+  };
+  
+  document.getElementById("player-vs-player").onclick = () => {
+    isVsComputer = false;
+    opponentLabel.textContent = "PLAYER";
+    game = startTicTacToe();
+  };
+  
+  document.getElementById("play-again").onclick = () => game && game.resetGame();
+  document.getElementById("restart-button").onclick = () => game && game.resetGame();
+  
+  document.getElementById("menu-return").onclick = () => showScreen("mode");
+  document.getElementById("menu-button").onclick = () => window.location.href = "game.html";
+});
