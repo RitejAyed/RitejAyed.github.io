@@ -12,11 +12,20 @@ const winnerIcon = document.querySelector('.winner-icon');
 const winnerText = document.querySelector('.winner-text');
 const winningLine = document.getElementById('winning-line');
 let isVsComputer = true;
+// Store game controller reference to access reset functionality
+let gameController = null;
 
 // Show one screen and hide the others
 function showScreen(screenId) {
   Object.values(screens).forEach(screen => screen.classList.remove('active'));
   screens[screenId].classList.add('active');
+}
+
+// Global reset function that can be called by buttons
+function resetGame() {
+  if (gameController) {
+    gameController.resetGame();
+  }
 }
 
 // Start the game
@@ -63,6 +72,8 @@ function startTicTacToe() {
     if (result.winner === "draw") {
       winnerText.textContent = "DRAW!";
       winnerIcon.className = "winner-icon";
+      // Show winner screen immediately for draws
+      showScreen("winner");
     } else {
       // Show the winning line
       winningLine.style.display = "block";
@@ -161,8 +172,8 @@ function startTicTacToe() {
 
   showScreen("game");
 
-  // This function can be used to reset the game
-  return {
+  // Store the controller object for external access
+  gameController = {
     resetGame: function() {
       gameState = ["", "", "", "", "", "", "", "", ""];
       currentPlayer = "O";
@@ -172,3 +183,36 @@ function startTicTacToe() {
     }
   };
 }
+
+// Set up event listeners when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Start button takes you to mode selection
+  document.getElementById('start-button').addEventListener('click', function() {
+    showScreen('mode');
+  });
+  
+  // Play vs Computer mode
+  document.getElementById('player-vs-computer').addEventListener('click', function() {
+    isVsComputer = true;
+    opponentLabel.textContent = "COMPUTER";
+    startTicTacToe();
+  });
+  
+  // Play vs Player mode
+  document.getElementById('player-vs-player').addEventListener('click', function() {
+    isVsComputer = false;
+    opponentLabel.textContent = "PLAYER";
+    startTicTacToe();
+  });
+  
+  // Restart button resets the current game
+  document.getElementById('restart-button').addEventListener('click', resetGame);
+  
+  // Menu button takes you back to mode selection
+  document.getElementById('menu-return').addEventListener('click', function() {
+    showScreen('mode');
+  });
+  
+  // Play again button starts a new game with the same settings
+  document.getElementById('play-again').addEventListener('click', startTicTacToe);
+});
