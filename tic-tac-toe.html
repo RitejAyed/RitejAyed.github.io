@@ -7,16 +7,16 @@
   <link rel="stylesheet" href="tic-tac-toe.css">
 </head>
 <body>
-  <!-- Bouton de menu pour naviguer vers d'autres jeux -->
+  <!-- Button to go back to the main menu -->
   <div class="menu-button" id="menu-button" onclick="location.href='game.html'">MENU</div>
   
-  <!-- Écran d'introduction -->
+  <!-- First screen with the game title and play button -->
   <div id="intro-screen" class="screen active">
     <div class="title">Tic-Tac-Toe</div>
     <div class="neon-button" id="start-button">TAP TO PLAY</div>
   </div>
   
-  <!-- Écran de sélection du mode de jeu -->
+  <!-- Choose game mode: Player vs Computer or Player vs Player -->
   <div id="mode-screen" class="screen">
     <div class="mode-container">
       <div class="mode-option" id="player-vs-computer">
@@ -36,7 +36,7 @@
     </div>
   </div>
   
-  <!-- Écran du jeu -->
+  <!-- Main game screen with the board and controls -->
   <div id="game-screen" class="screen">
     <div class="game-header">
       <div class="player-info">
@@ -50,6 +50,7 @@
       </div>
     </div>
     
+    <!-- Game board with 9 cells -->
     <div class="game-board">
       <div class="board-container">
         <div class="board-cell" data-index="0"></div>
@@ -61,10 +62,12 @@
         <div class="board-cell" data-index="6"></div>
         <div class="board-cell" data-index="7"></div>
         <div class="board-cell" data-index="8"></div>
+        <!-- Line to show the winner pattern -->
         <div class="winning-line" id="winning-line"></div>
       </div>
     </div>
     
+    <!-- Buttons to restart or go back to menu -->
     <div class="game-controls">
       <div class="control-button" id="restart-button">
         <div class="restart-icon"></div>
@@ -75,7 +78,7 @@
     </div>
   </div>
   
-  <!-- Écran du gagnant -->
+  <!-- Screen to show the winner -->
   <div id="winner-screen" class="screen">
     <div class="winner-container">
       <div class="winner-icon"></div>
@@ -84,8 +87,10 @@
     </div>
   </div>
   
+  <!-- Canvas for confetti animation -->
   <canvas id="confetti-canvas"></canvas>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="tic-tac-toe.js"></script>
 </body>
 </html>
+
