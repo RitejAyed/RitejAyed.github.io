@@ -1,80 +1,189 @@
+/* Import elegant serif fonts for dark academia vibe */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=EB+Garamond&display=swap');
+
+/* ===== GENERAL STYLES ===== */
 body {
-	min-height: 100vh;
-	min-width: 100vh;
-	background-color:#12181f;
-	color: white;
+  min-height: 100vh; /* Ensures body fills the full viewport height */
+  background: #1e1b18; /* Dark background for a moody aesthetic */
+  background-image: radial-gradient(#362c2a 2px, transparent 2px), radial-gradient(#362c2a 2px, transparent 2px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px; /* Creates a poker table-style checker pattern */
+  color: #f4e9e6; /* Light text for contrast */
+  font-family: 'EB Garamond', serif; /* Elegant serif font */
+  letter-spacing: 0.5px; /* Slight spacing for refined look */
 }
+
 h1 {
-	text-align: center;
-	font-weight: 700;
-	font-size: 50px;
-}
-p{
-	text-align:center;
-	font-size:30px;
-	font-weight:bold;
-}
-.action{
-	display: flex;
-	justify-content: center;
+  text-align: center; /* Centered title */
+  font-size: 60px; /* Large font for prominence */
+  font-family: 'Cormorant Garamond', serif; /* Decorative serif font */
+  color: #f5c2c7; /* Muted rose color */
+  margin-top: 30px; /* Spacing from top */
+  text-shadow: 1px 1px 2px #000; /* Soft shadow for depth */
 }
 
-.action button {
-	padding: 8px 16px;
-	font-size: 30px;
-	border-radius: 10px;
-	background-color: #27ae60;
-	color: white;
+/* ===== GAME WRAPPER STYLING ===== */
+.game-wrapper {
+  border: 1px solid #5e4b4b; /* Subtle border */
+  padding: 30px; /* Inner spacing */
+  margin: 40px auto; /* Vertical margin and center horizontally */
+  max-width: 1000px; /* Limits width for readability */
+  background-color: #292321; /* Dark brownish background */
+  box-shadow: 0 0 25px rgba(255, 192, 203, 0.1); /* Soft rosy glow */
+  border-radius: 12px; /* Smooth corners */
 }
+
+/* ===== BUTTON STYLING ===== */
+.action, .action-buttons {
+  display: flex; /* Aligns buttons side by side */
+  justify-content: center; /* Center the buttons */
+  gap: 16px; /* Space between buttons */
+  margin: 20px 0; /* Vertical spacing */
+}
+
+.action button,
+.action-buttons button,
+#menu button {
+  padding: 12px 28px; /* Button size */
+  font-size: 18px; /* Readable font size */
+  border-radius: 6px; /* Rounded corners */
+  border: 2px solid #8c6a72; /* Rosy border */
+  background-color: #4e3c3f; /* Dark rosy background */
+  color: #f7ebf0; /* Pale text */
+  font-family: 'Cormorant Garamond', serif; /* Decorative font */
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.4); /* Depth effect */
+  transition: all 0.3s ease; /* Smooth hover effect */
+  cursor: pointer; /* Pointer on hover */
+}
+
+.action button:hover,
+.action-buttons button:hover,
+#menu button:hover {
+  background-color: #704b57; /* Darker pink on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+#menu button {
+  position: absolute; /* Fixed position on screen */
+  top: 20px; /* Distance from top */
+  left: 20px; /* Distance from left */
+}
+
+/* ===== GAME GRID LAYOUT ===== */
 .grid-container {
-	display:grid;
-	justify-content: center;
-	grid-gap:16px;
-	grid-template-columns:repeat(6, 140px);
-	grid-template-rows:repeat(2, calc(140px / 2 *3));
+  display: grid; /* Grid layout */
+  justify-content: center; /* Center horizontally */
+  grid-gap: 16px; /* Space between cards */
+  grid-template-columns: repeat(6, 140px); /* 6 columns of fixed size */
+  grid-template-rows: repeat(2, calc(140px / 2 * 3)); /* 2 rows with 3:2 aspect ratio */
 }
 
-.card{
-	height: calc(140px/ 2 *3);
-	width:140px;
-	border-radius:10px;
-	background-color: white;
-	position: relative;
-	transform-style: preserve-3d;
-	transition: all 0.5s ease-in-out;
+/* ===== STATS SECTION ===== */
+.stats-container {
+  display: flex; /* Horizontal alignment */
+  justify-content: center; /* Center items */
+  gap: 40px; /* Space between stats */
+  font-size: 22px; /* Text size */
+  color: #f5e1e6; /* Pale pink color */
+  font-style: italic; /* Italic for elegant look */
+  margin: 20px 0; /* Vertical spacing */
 }
 
-.font-image {
-	width: 60px;
-	height: 60px;
+.timer {
+  font-weight: bold; /* Highlight timer */
+  font-size: 30px; /* Make it prominent */
 }
 
-.card.flipped{
-	transform: rotateY(180deg);
+/* ===== CARD STYLING ===== */
+.card {
+  height: calc(140px / 2 * 3); /* Maintain 3:2 aspect ratio */
+  width: 140px; /* Fixed width */
+  border-radius: 10px; /* Rounded corners */
+  background-color: #3c2f2f; /* Base background */
+  border: 1px solid #8c6a72; /* Rosy outline */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Depth */
+  position: relative; /* Needed for inner absolute elements */
+  transform-style: preserve-3d; /* For 3D flipping */
+  transition: all 0.5s ease-in-out; /* Smooth flip */
 }
 
-.font,
-.back {
-	backface-visibility: hidden;
-	position: absolute;
-	border-radius: 10px;
-	top: 0;
-	left:0;
-	height: 100%;
-	width:100%;
+.card.flipped {
+  transform: rotateY(180deg); /* Flip the card */
+}
+
+.card .font,
+.card .back {
+  backface-visibility: hidden; /* Hide the back during flip */
+  position: absolute; /* Overlay positioning */
+  border-radius: 10px; /* Smooth edges */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .card .font {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transform: rotateY(180deg);
+  background-color: #524141; /* Front face color */
+  display: flex; /* Center content */
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg); /* Opposite of back face */
+  font-size: 44px; /* Big icon/text */
+  color: #ffd5e5; /* Pink text */
+  font-family: 'EB Garamond', serif; /* Elegant typeface */
+  background-image: url("./cadre.png"); /* Decorative frame */
+  background-position: center;
+  background-size: cover;
 }
 
 .card .back {
-	background-image: url("./card1.png");
-	background-position: center center;
-	background-size: cover;
-	backface-visibility: hidden;
-	border-radius: 5px;
+  background-image: url("./card.png"); /* Back of card image */
+  background-position: center;
+  background-size: cover;
+}
+
+.font-image {
+  width: 100px; /*image sizing */
+  height: 100px;
+}
+
+/* ===== RESULTS DISPLAY ===== */
+.results-section {
+  display: none; /* Hidden by default */
+  max-width: 600px; /* Constrain width */
+  margin: 30px auto; /* Centered with spacing */
+  background-color: #2f2626; /* Dark backdrop */
+  padding: 25px; /* Inner space */
+  border-radius: 15px; /* Rounded edges */
+  box-shadow: 0 0 15px rgba(250, 200, 210, 0.2); /* Soft pink glow */
+  border: 1px solid #70575e; /* Border for definition */
+}
+.results-section h2{
+	text-align: center;
+	font-size: 40px;
+}
+
+.result-item {
+  display: flex; /* Label and value side by side */
+  justify-content: space-between;
+  padding: 12px 0; /* Vertical padding */
+  border-bottom: 1px solid #8c6a72; /* Subtle divider */
+  font-size: 22px;
+  color: #fbe3e8;
+}
+
+.result-label {
+  color: #e2a8b5; /* Pale rose */
+  font-weight: bold;
+}
+
+.result-value {
+  color: #f8d2df; /* Light pink */
+}
+
+/* ===== EXTRA DECORATIVE ELEMENTS ===== */
+.icon {
+  margin-left: 10px; /* Space after text */
+  font-size: 40px; /* Icon size */
+  color: #f5c2c7; /* Rose tone */
 }

@@ -1,19 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"> <!-- for full Unicode support -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Ensures compatibility with the latest rendering engine in Internet Explorer -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Memory card game</title>
 	<link rel="stylesheet" type="text/css" href="memory.css">
+	<!-- for the trophy icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 	<h1> Memory Card </h1>
-	<div class="grid-container">
+	<!-- game sections -->
+	<div class="game-wrapper">
+		<div class="game-section">
+			<div class="grid-container">
+			</div>
+			<div class="stats-container">
+				<p>Score: <span class="score">0</span></p>
+				<p>Time: <span class="timer">00:00</span></p>
+				<p>Missed: <span class="missed">0</span></p>
+			</div>
+			
+			<div class="action">
+				<button onclick="restart()">Restart</button>
+			</div>
+			<div id="menu"> 
+				<button onclick="location.href='game.html'"><i class="fas fa-house"></i></button>
+			</div>
+		</div>
 	</div>
-	<p>Score: <span class="score"></span></p>
-	<div class="action">
-		<button onclick="restart()">Restart</button>
+	
+	<!-- Section des résultats -->
+	<div class="results-section" id="results">
+		<h2><span class="icon">🕯</span> Game Results</h2>
+		<div class="result-item">
+			<span class="result-label">Score:</span>
+			<span class="result-value" id="final-score">0</span>
+		</div>
+		<div class="result-item">
+			<span class="result-label">Time:</span>
+			<span class="result-value" id="final-time">00:00</span>
+		</div>
+		<div class="result-item">
+			<span class="result-label">Missed Moves:</span>
+			<span class="result-value" id="final-missed">0</span>
+		</div>
+		
+		<div class="action-buttons">
+			<button class="play-again" onclick="playAgain()">Play Again</button>
+			<button class="home" onclick="location.href='game.html'"><i class="fas fa-house"></i></button>
+		</div>
 	</div>
 	<script src="memory.js"></script>
 </body>

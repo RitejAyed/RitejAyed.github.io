@@ -1,37 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="rsp.css"/>
-  <title>Rock Paper Scissors</title>
+<!DOCTYPE html> <!-- Declares the document type as HTML -->
+<html lang="en"> <!-- Root element with English language -->
+<head> <!-- Container for metadata and doc info -->
+    <meta charset="UTF-8"> <!-- Sets character encoding to UTF-8 -->
+    <title>Retro Rock Paper Scissors</title> <!-- Sets the title shown in browser tab -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Imports the retro 'Press Start 2P' font from Google Fonts -->
+    <link rel="stylesheet" href="rsp.css"> <!-- Links to the external CSS file -->
 </head>
-<body>
-  <header>
-    <h1>Rock Paper Scissors</h1>
-  </header>
-
-  <div class="game-container">
-    <div class="hand-zone">
-      <div id="player-hand" class="hand">❓</div>
-      <div id="computer-hand" class="hand">❓</div>
+<body> <!-- Contains the visible content of the webpage -->
+    <div class="stars"></div> <!-- Element for the starry background effect -->
+    
+    <header> <!-- Header section of the page -->
+        <div class="logo-container"> <!-- Container for the game logo -->
+            <h1>ROCK PAPER SCISSORS</h1> <!-- Main heading = the game title -->
+        </div>
+    </header>
+    
+    <div class="game-container"> <!-- Main container for the game content -->
+        <div class="hands-container"> <!-- Container for the player and computer hands -->
+            <div class="player-info"> <!-- Container for player information -->
+                <h2>PLAYER</h2> <!-- Player heading -->
+                <div id="player-hand" class="hand"> <!-- Container for the player's hand image -->
+                    <!-- Player hand will be displayed here --> 
+                </div>
+            </div>
+            
+            <div class="vs-badge">VS</div> <!-- Badge showing "VS" between player and computer -->
+            
+            <div class="computer-info"> <!-- Container for computer information -->
+                <h2>COMPUTER</h2> <!-- Computer heading -->
+                <div id="computer-hand" class="hand"> <!-- Container for the computer's hand image -->
+                    <!-- Computer hand will be displayed here --> 
+                </div>
+            </div>
+        </div>
+        
+        <div class="results"> <!-- Container for displaying game results -->
+            <div id="result">MAKE YOUR CHOICE!</div> <!-- Initial text prompting to make a choice -->
+        </div>
+        
+        <div class="choices"> <!-- Container for the game choice buttons -->
+            <button onclick="play('rock')" aria-label="Rock" class="choice-btn"> <!-- Button to choose rock -->
+                <img src="rock.png" alt="Rock"> <!-- Rock image -->
+                <span>ROCK</span> <!-- Text label for rock button -->
+            </button>
+            
+            <button onclick="play('paper')" aria-label="Paper" class="choice-btn"> <!-- Button to choose paper -->
+                <img src="paper.png" alt="Paper"> <!-- Paper image -->
+                <span>PAPER</span> <!-- Text label for paper button -->
+            </button>
+            
+            <button onclick="play('scissors')" aria-label="Scissors" class="choice-btn"> <!-- Button to choose scissors -->
+                <img src="scissors.png" alt="Scissors"> <!-- Scissors image -->
+                <span>SCISSORS</span> <!-- Text label for scissors button -->
+            </button>
+        </div>
+        
+        <div class="stats"> <!-- Container for the game statistics -->
+            <h3>GAME STATS</h3> <!-- Heading for the stats section -->
+            
+            <div class="stat-item"> <!-- Container for wins statistic -->
+                <div class="stat-label">WINS</div> <!-- Label for wins -->
+                <div id="wins" class="stat-value">0</div> <!-- Value for wins, initially set to 0 -->
+            </div>
+            
+            <div class="stat-item"> <!-- Container for draws statistic -->
+                <div class="stat-label">DRAWS</div> <!-- Label for draws -->
+                <div id="draws" class="stat-value">0</div> <!-- Value for draws, initially set to 0 -->
+            </div>
+            
+            <div class="stat-item"> <!-- Container for losses statistic -->
+                <div class="stat-label">LOSSES</div> <!-- Label for losses -->
+                <div id="losses" class="stat-value">0</div> <!-- Value for losses, initially set to 0 -->
+            </div>
+            
+            <button id="reset-btn" class="reset-button">RESET</button> <!-- Button to reset the game statistics -->
+        </div>
     </div>
-
-    <div class="choices">
-      <button onclick="play('rock')">✊</button>
-      <button onclick="play('paper')">✋</button>
-      <button onclick="play('scissors')">✌</button>
-    </div>
-
-    <div class="results">
-      <h2 id="result">Make your choice !</h2>
-    </div>
-  </div>
-
-  <footer>
-    <p><a href="game.html">← Retour au menu</a></p>
-  </footer>
-
-  <script src="rsp.js"></script>
+    
+    <footer> <!-- Footer section of the page -->
+        <a href="#" class="btn-return" onclick="location.href='game.html'">← RETURN TO MENU</a> <!-- Link to return to a menu -->
+    </footer>
+    
+    <script src="rsp.js"></script> <!-- Links to the external JavaScript file -->
 </body>
 </html>

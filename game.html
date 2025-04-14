@@ -4,37 +4,40 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="game.css">
+    <!-- for the font-family -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"> 
+    <!-- for the trophy icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<title>Game Launcher</title>
 </head>
 <body>
     <header>
-        <h1>Game Launcher</h1>
+        <h1>Game Room</h1>
     </header>
-    <div id="launcher">
-        <button onclick="location.href='tic-tac-toe.html'">
-            <img src="TTT.png" alt="Tic-Tac-Toe">
-            Play Tic-Tac-Toe
-        </button>
-        <button onclick="location.href='rsp.html'">
-            <img src="rps.avif" alt="Rock-Paper-Scissors">
-            Play Rock-Paper-Scissors
-        </button>
-        <button onclick="location.href='memory.html'">
-            <img src="memory.jpeg" alt="Memory Game">
-            Play Memory Game
-        </button>
-    </div>
-    <div id="menuButton" class="menu-tab">☰</div>
-    <div id="sidebar" class="sidebar">
-        <div class= list>
-            <a href="#">Scores</a>
-            <a href="#">Account</a>
+        <div id="launcher">
+            <button onclick="location.href='tic-tac-toe.html'">
+                <img src="TTT.png" alt="Tic-Tac-Toe">
+                <span>Tic-Tac-Toe</span>
+            </button>
+            <button onclick="location.href='rsp.html'">
+                <img src="rps.avif" alt="Rock-Paper-Scissors">
+                <span>Rock Paper Scissors</span>
+            </button>
+            <button onclick="location.href='memory.html'">
+                <img src="memory.jpeg" alt="Memory Game">
+                <span>Memory Game</span>
+            </button>
         </div>
-        <div id= "about"> 
-            <button onclick="location.href='about.html'">About Us</button>
+        <div id="menuButton" class="menu-tab">☰</div>
+        <div id="sidebar" class="sidebar">
+            <div class= list>
+                <a href="#"><i class="fas fa-trophy"></i> Scores</a>
+            </div>
+            <div id= "about"> 
+                <button onclick="location.href='about.html'">About Us</button>
+            </div>
         </div>
-    </div>
-        <script src="game.js"></script>
+            <script src="game.js"></script>
     <footer>
             
     </footer>

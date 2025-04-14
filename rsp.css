@@ -1,69 +1,344 @@
+/* Define the color palette and common styling variables */
+:root {
+  --bg-color: #0a0029;             /* Dark blue-purple background color */
+  --primary-color: #fff;           /* White text color */
+  --secondary-color: #00ffff;      /* Cyan accent color */
+  --tertiary-color: #ff00ff;       /* Magenta accent color */
+  --quaternary-color: #ffff00;     /* Yellow accent color */
+  --quinary-color: #ff0000;        /* Red accent color */
+  --font-family: 'Press Start 2P', cursive;  /* Retro pixel font */
+  --border-radius: 8px;            /* Default corner rounding */
+  --box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 0, 255, 0.5);  /* Cyan outer glow, blue inner glow */
+  --scanlines: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);  /* CRT monitor scanline effect */
+}
+
+/* Basic page styling */
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #1c1c2b, #3a3a60);
-  color: #fff;
-  margin: 0;
-  text-align: center;
+  font-family: var(--font-family);  /* Apply retro font */
+  background-color: var(--bg-color);  /* Set dark background */
+  color: var(--primary-color);  /* Set white text color */
+  margin: 0;  /* Remove default margin */
+  padding: 0;  /* Remove default padding */
+  text-align: center;  /* Center all content */
 }
 
+/* Add CRT scanline effect overlay */
+body::after {
+  content: "";  /* Create empty element */
+  position: fixed;  /* Fix position regardless of scroll */
+  top: 0;  /* Position at top */
+  left: 0;  /* Position at left */
+  width: 100%;  /* Full width */
+  height: 100%;  /* Full height */
+  background: var(--scanlines);  /* Apply scanline pattern */
+  pointer-events: none;  /* Make it non-interactive */
+  z-index: 999;  /* Place above all other elements */
+}
+
+/* Create starfield background */
+.stars {
+  position: fixed;  /* Fix position regardless of scroll */
+  top: 0;  /* Position at top */
+  left: 0;  /* Position at left */
+  width: 100%;  /* Full width */
+  height: 100%;  /* Full height */
+  z-index: -1;  /* Place behind other elements */
+  overflow: hidden;  /* Hide overflow */
+  background-image: radial-gradient(white, rgba(255,255,255,0) 2px), radial-gradient(white, rgba(255,255,255,0) 1px);  /* Create two sizes of star dots */
+  background-size: 50px 50px, 30px 30px;  /* Set spacing between stars */
+  background-position: 0 0, 25px 25px;  /* Offset second star pattern */
+}
+
+/* Header styling */
 header {
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.8);
-  font-size: 28px;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  padding: 20px;  /* Add internal spacing */
+  background: linear-gradient(to bottom, #000088, #000055);  /* Blue gradient background */
+  border-bottom: 3px solid var(--secondary-color);  /* Cyan bottom border */
+  margin-bottom: 20px;  /* Add space below header */
 }
 
+/* Container for logo positioning */
+.logo-container {
+  position: relative;  /* Enable positioning of children */
+  display: inline-block;  /* Make container fit content */
+}
+
+/* Main title styling */
+h1 {
+  text-shadow: 4px 4px 0px var(--tertiary-color), -4px -4px 0px var(--secondary-color);  /* 3D text effect with magenta and cyan */
+  font-size: 2rem;  /* Set font size */
+  margin: 0;  /* Remove default margin */
+  letter-spacing: 2px;  /* Add space between letters */
+}
+
+/* Main game area container */
 .game-container {
-  margin-top: 40px;
+  max-width: 700px;  /* Limit width */
+  margin: 0 auto 30px;  /* Center horizontally with bottom margin */
+  padding: 25px;  /* Add internal spacing */
+  background: linear-gradient(#000066, #000044);  /* Blue gradient background */
+  border: 3px solid var(--secondary-color);  /* Cyan border */
+  border-radius: var(--border-radius);  /* Round corners */
+  box-shadow: var(--box-shadow);  /* Add glow effect */
+  z-index: 1;  /* Ensure appears above background */
 }
 
-.hand-zone {
-  display: flex;
-  justify-content: center;
-  gap: 100px;
-  margin-bottom: 40px;
-  font-size: 80px;
+/* Section headings */
+h2 {
+  font-size: 1.2rem;  /* Set font size */
+  color: var(--quaternary-color);  /* Yellow text */
+  text-shadow: 2px 2px 0px #ff8800;  /* Orange shadow for contrast */
+  margin: 15px 0;  /* Add vertical spacing */
+  letter-spacing: 1px;  /* Add space between letters */
 }
+
+/* Container for player and computer hands */
+.hands-container {
+  display: flex;  /* Use flexbox layout */
+  justify-content: space-around;  /* Distribute space evenly */
+  align-items: center;  /* Center items vertically */
+  margin: 30px 0;  /* Add vertical spacing */
+  position: relative;  /* Enable positioning of children */
+}
+
+/* Player and computer info sections */
+.player-info, .computer-info {
+  display: flex;  /* Use flexbox layout */
+  flex-direction: column;  /* Stack children vertically */
+  align-items: center;  /* Center items horizontally */
+}
+
+/* VS badge between hands */
+.vs-badge {
+  position: absolute;  /* Position independently */
+  left: 50%;  /* Center horizontally */
+  top: 50%;  /* Center vertically */
+  transform: translate(-50%, -50%);  /* Fine-tune centering */
+  background-color: var(--quinary-color);  /* Red background */
+  color: var(--primary-color);  /* White text */
+  padding: 8px 12px;  /* Add internal spacing */
+  border-radius: 50%;  /* Make circular */
+  font-size: 1.2rem;  /* Set font size */
+  box-shadow: 0 0 10px var(--quinary-color);  /* Red glow effect */
+  z-index: 2;  /* Ensure appears above other elements */
+  text-shadow: 1px 1px 2px #000;  /* Add black text shadow */
+}
+
+/* Hand display area */
 .hand {
-  transition: transform 0.3s ease;
+  background: linear-gradient(to bottom, #000055, #000033);  /* Blue gradient background */
+  border: 3px solid #00ff00;  /* Green border */
+  border-radius: var(--border-radius);  /* Round corners */
+  padding: 15px;  /* Add internal spacing */
+  width: 120px;  /* Set width */
+  height: 120px;  /* Set height */
+  display: flex;  /* Use flexbox layout */
+  align-items: center;  /* Center vertically */
+  justify-content: center;  /* Center horizontally */
+  margin-top: 15px;  /* Add top spacing */
+  box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.3);  /* Inner green glow */
 }
 
-.hand.animate {
-  animation: shake 0.6s ease;
+/* Hand images */
+.hand img {
+  width: 100px;  /* Set width */
+  height: 100px;  /* Set height */
+  object-fit: contain;  /* Maintain aspect ratio */
 }
 
-@keyframes shake {
-  0% { transform: translateY(0); }
-  25% { transform: translateY(-15px); }
-  50% { transform: translateY(0); }
-  75% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+/* Animation class for hand movement */
+.hand.rock-paper-scissors {
+  animation: rockPaperScissors 1.5s ease;  /* Apply hand shake animation */
 }
 
-.choices button {
-  font-size: 50px;
-  background: none;
-  border: none;
-  margin: 10px;
-  cursor: pointer;
-  transition: transform 0.2s;
+/* Define hand shaking animation */
+@keyframes rockPaperScissors {
+  0%, 30%, 60% { transform: translateY(0); }  /* Rest position */
+  15%, 45%, 75% { transform: translateY(-20px); }  /* Up position */
 }
 
-.choices button:hover {
-  transform: scale(1.2);
+/* Container for choice buttons */
+.choices {
+  display: flex;  /* Use flexbox layout */
+  justify-content: center;  /* Center horizontally */
+  gap: 20px;  /* Add space between items */
+  margin: 30px 0;  /* Add vertical spacing */
 }
 
+/* Individual choice buttons */
+.choice-btn {
+  background: linear-gradient(to bottom, #000088, #000044);  /* Blue gradient background */
+  border: 3px solid var(--quaternary-color);  /* Yellow border */
+  border-radius: var(--border-radius);  /* Round corners */
+  cursor: pointer;  /* Show hand cursor on hover */
+  padding: 12px;  /* Add internal spacing */
+  transition: all 0.3s;  /* Smooth transitions */
+  display: flex;  /* Use flexbox layout */
+  flex-direction: column;  /* Stack children vertically */
+  align-items: center;  /* Center items horizontally */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);  /* Add subtle shadow */
+}
+
+/* Button hover effect */
+.choice-btn:hover {
+  transform: translateY(-5px) scale(1.05);  /* Move up and enlarge */
+  border-color: var(--tertiary-color);  /* Change to magenta border */
+  box-shadow: 0 10px 25px rgba(255, 0, 255, 0.4);  /* Add magenta glow */
+}
+
+/* Button click effect */
+.choice-btn:active {
+  transform: scale(0.95);  /* Slightly shrink when clicked */
+}
+
+/* Choice button images */
+.choice-btn img {
+  width: 60px;  /* Set width */
+  height: 60px;  /* Set height */
+  margin-bottom: 8px;  /* Add bottom spacing */
+}
+
+/* Choice button text */
+.choice-btn span {
+  font-size: 0.7rem;  /* Set font size */
+  color: var(--secondary-color);  /* Cyan text */
+}
+
+/* Results display area */
 .results {
-  margin-top: 30px;
-  font-size: 24px;
-}
-footer {
-  margin-top: 60px;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.7);
+  margin: 25px 0;  /* Add vertical spacing */
+  padding: 15px;  /* Add internal spacing */
+  background: linear-gradient(to right, #000088, #000044, #000088);  /* Horizontal blue gradient */
+  border: 3px solid var(--secondary-color);  /* Cyan border */
+  border-radius: var(--border-radius);  /* Round corners */
+  display: flex;  /* Use flexbox layout */
+  align-items: center;  /* Center vertically */
+  justify-content: center;  /* Center horizontally */
 }
 
-footer a {
-  color: #ffbb55;
-  text-decoration: none;
+/* Results text */
+#result {
+  font-size: 1.2rem;  /* Set font size */
+  letter-spacing: 1px;  /* Add space between letters */
+  color: var(--primary-color);  /* White text */
+  text-shadow: 0 0 5px var(--secondary-color);  /* Cyan text glow */
+}
+
+/* Animation for result announcement */
+.result-animation {
+  animation: resultPulse 0.5s ease-in-out;  /* Apply pulsing animation */
+}
+
+/* Define result pulse animation */
+@keyframes resultPulse {
+  0% { transform: scale(0.9); }  /* Start slightly smaller */
+  50% { transform: scale(1.2); color: var(--tertiary-color); text-shadow: 0 0 10px var(--tertiary-color); }  /* Grow and change color */
+  100% { transform: scale(1); }  /* Return to normal */
+}
+
+/* Statistics area */
+.stats {
+  margin-top: 30px;  /* Add top spacing */
+  padding: 15px;  /* Add internal spacing */
+  background: linear-gradient(to bottom, #000066, #000044);  /* Blue gradient background */
+  border: 3px solid var(--quaternary-color);  /* Yellow border */
+  border-radius: var(--border-radius);  /* Round corners */
+  display: grid;  /* Use grid layout */
+  grid-template-columns: repeat(3, 1fr);  /* Create 3 equal columns */
+  gap: 15px;  /* Add space between grid items */
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);  /* Yellow glow */
+}
+
+/* Stats heading */
+.stats h3 {
+  grid-column: span 3;  /* Span all columns */
+  font-size: 1rem;  /* Set font size */
+  margin: 0 0 15px 0;  /* Add bottom spacing */
+  color: var(--primary-color);  /* White text */
+  text-shadow: 2px 2px 0px var(--quinary-color);  /* Red text shadow */
+}
+
+/* Individual stat boxes */
+.stat-item {
+  display: flex;  /* Use flexbox layout */
+  flex-direction: column;  /* Stack children vertically */
+  align-items: center;  /* Center items horizontally */
+  padding: 10px;  /* Add internal spacing */
+  background-color: rgba(0, 0, 0, 0.3);  /* Semi-transparent black */
+  border-radius: 5px;  /* Round corners */
+}
+
+/* Stat labels */
+.stat-label {
+  font-size: 0.7rem;  /* Set font size */
+  color: var(--secondary-color);  /* Cyan text */
+  margin-bottom: 8px;  /* Add bottom spacing */
+}
+
+/* Stat values */
+.stat-value {
+  font-size: 1.5rem;  /* Set font size */
+  color: var(--primary-color);  /* White text */
+  text-shadow: 0 0 5px var(--primary-color);  /* White glow */
+}
+
+/* Reset statistics button */
+.reset-button {
+  grid-column: span 3;  /* Span all columns */
+  background: linear-gradient(to bottom, #880000, #550000);  /* Red gradient */
+  border: 2px solid var(--quaternary-color);  /* Yellow border */
+  border-radius: 5px;  /* Round corners */
+  color: var(--primary-color);  /* White text */
+  padding: 8px;  /* Add internal spacing */
+  font-family: var(--font-family);  /* Use retro font */
+  font-size: 0.8rem;  /* Set font size */
+  cursor: pointer;  /* Show hand cursor on hover */
+  margin-top: 10px;  /* Add top spacing */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);  /* Add subtle shadow */
+}
+
+/* Reset button hover effect */
+.reset-button:hover {
+  background: linear-gradient(to bottom, #aa0000, #660000);  /* Brighter red gradient */
+}
+
+/* Reset button click effect */
+.reset-button:active {
+  transform: translateY(2px);  /* Move down slightly */
+}
+
+/* Page footer */
+footer {
+  margin-top: 30px;  /* Add top spacing */
+  padding: 15px;  /* Add internal spacing */
+  background: linear-gradient(to bottom, #000088, #000055);  /* Blue gradient */
+  border-top: 3px solid var(--secondary-color);  /* Cyan top border */
+  display: flex;  /* Use flexbox layout */
+  justify-content: space-between;  /* Push items to edges */
+  align-items: center;  /* Center vertically */
+}
+
+/* Return button */
+.btn-return {
+  color: var(--secondary-color);  /* Cyan text */
+  text-decoration: none;  /* Remove underline */
+  font-size: 0.8rem;  /* Set font size */
+  transition: all 0.3s;  /* Smooth transitions */
+  padding: 8px 12px;  /* Add internal spacing */
+  border: 2px solid transparent;  /* Invisible border */
+  border-radius: 4px;  /* Round corners */
+}
+
+/* Return button hover effect */
+.btn-return:hover {
+  color: var(--primary-color);  /* White text */
+  background-color: rgba(0, 255, 255, 0.2);  /* Semi-transparent cyan */
+  border-color: var(--secondary-color);  /* Cyan border */
+  text-shadow: 0 0 8px var(--secondary-color);  /* Cyan text glow */
+}
+
+/* Footer credits text */
+.credits {
+  font-size: 0.7rem;  /* Set font size */
+  color: #6666ff;  /* Light blue text */
 }

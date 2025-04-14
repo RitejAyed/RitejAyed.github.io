@@ -1,0 +1,96 @@
+/* police d'écriture pixelisée */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* On réinitialise tous les marges et paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style du corps de la page */
+body {
+  /* On utilise la police pixelisée */
+  font-family: 'Press Start 2P', cursive;
+  
+  /* On ajoute l'image de fond rétro */
+  background-image: url('https://media.istockphoto.com/id/907967560/vector/retro-80s-background.jpg?s=612x612&w=0&k=20&c=d7hoh4i1zw6ddjeOfltu8ws3RWKllwpY3thLkwGEH-E=');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* On s'assure que la page prend toute la hauteur */
+  min-height: 100vh;
+  
+  /* On centre tout au milieu de la page */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  /* On ajoute un peu d'espace entre les éléments */
+  gap: 40px;
+  padding: 20px;
+}
+
+/* Style commun pour les cartes des membres */
+#ritej, #rania, #wissal{
+  /* Dimensions et apparence de base */
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  
+  /* Dégradé de couleurs et bordure */
+  background: linear-gradient(to bottom, #36e6ff, #ff29de);
+  border: 2px solid #ffaa29;
+  
+  /* Ombre pour un effet 3D */
+  box-shadow: 0 0 10px rgba(255, 170, 41, 0.5);
+  
+  /* Ombre du texte pour meilleure lisibilité */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  
+  /* Pour l'effet de transition au survol */
+  transition: all 0.3s ease;
+  
+  /* Change le curseur en main au survol */
+  cursor: pointer;
+}
+
+/* Effet de survol - zoom et légère transparence */
+#ritej:hover, #rania:hover, #wissal:hover, .home:hover{
+  /* Agrandit la carte de 10% */
+  transform: scale(1.1);
+  
+  /* Ajoute une légère transparence */
+  opacity: 0.9;
+  
+  /* Augmente la brillance de l'ombre */
+  box-shadow: 0 0 15px rgba(255, 170, 41, 0.8);
+}
+
+/* Adaptation pour les écrans plus petits */
+@media (max-width: 400px) {
+  #ritej, #rania, #wissal {
+    width: 280px;
+    font-size: 14px;
+  }
+}
+
+.home {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 60px;               /* Définir une largeur fixe */
+  height: 60px;              /* Même valeur que la largeur pour créer un cercle */
+  padding: 0;                /* Supprimer le padding */
+  border-radius: 50%;        /* Créer la forme circulaire */
+  color: #fff;
+  background: linear-gradient(to bottom, #36e6ff, #ff29de);
+  border: 2px solid #ffaa29;
+  cursor: pointer;
+  z-index: 100;
+}

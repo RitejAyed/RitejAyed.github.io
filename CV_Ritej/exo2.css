@@ -1,0 +1,145 @@
+body{
+	font-family: "Times New Roman", Times, serif;
+	font-size:medium;
+}
+h1{
+	color:black 
+}
+h2{
+	color:black 
+}
+h3{
+	color:#4d8d87
+}
+p{
+	color:#39241c
+}
+p1{
+	color:white
+}
+main {
+	padding:25px;
+	background-color: #f2f4f5
+}
+
+header {
+    display: flex;
+    justify-content: space-evenly;
+	padding: 40px;
+	text-align: center;
+	background: #5c4b46;
+	font-size: 30px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;               
+}
+
+.profile-pic img {
+	width: 450px;            
+    height: auto;            
+    border-radius: 15px;     
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    object-fit: cover;       
+}
+
+.name-title h1 {
+    font-family: 'Georgia', serif; 
+    font-size: 48px;               
+    color: #ffffff;                
+    text-align: center;            
+    letter-spacing: 2px;           
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
+}
+
+body{
+	margin-top: 60px;
+  	margin-right: 200px;
+  	margin-bottom: 60px;
+  	margin-left: 200px;
+  	background-size: contain; 
+  	background-image: url('background2.jpg')
+
+}
+
+
+.body-second{
+    display: block;
+    margin:0px;
+	background-color: #f2f4f5;
+}
+
+
+footer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; 
+    align-items: center; 
+    padding: 20px;
+    position: relative;
+	background-color: #5c4b46;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#apps {
+    text-align: center;
+    margin-bottom: 20px;
+    padding:10px;
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+    justify-content: space-around;
+}
+
+#premier-pied_page {
+    margin: 10px 0; 
+}
+
+#second-pied_page {
+  	position: absolute;   
+    bottom: 0;            
+    left: 0;              
+    padding: 15px;
+  	background-color: #5c4b46;
+}
+
+
+#bojack img {
+    position: absolute;  
+    right: 0;            
+    bottom: 0;           
+    margin: 0px;
+ }
+
+#title {
+    font-size: 24px; 
+    font-weight: bold;
+    color: black;
+    margin-bottom: 15px;
+ }
+
+#apps a i {
+    color: #f2f4f5;  
+    transition: transform 0.3s ease, color 0.3s ease; 
+}
+
+#facebook a:hover i, 
+#X a:hover i, 
+#linkedin a:hover i, 
+#pdf a:hover i, 
+#instagram a:hover i {  
+    transform: scale(1.3);  
+    color: #c4a493;         
+ }
+
+#facebook a:active i, 
+#X a:active i, 
+#linkedin a:active i, 
+#pdf a:active i,
+#instagram a:active i {
+    color: #4d8d87;         
+    transform: scale(1.1);  
+}

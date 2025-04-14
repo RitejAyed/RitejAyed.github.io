@@ -1,0 +1,160 @@
+/* Lien Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Style global */
+* {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+}
+
+body {
+    background-color: #f4f4f4; /* Fond plus clair pour le corps */
+    color: #333;
+    padding: 20px;
+}
+
+/* Style header et footer */
+header, footer {
+    background-color: #d3d3d3; /* Gris clair pour header et footer */
+    color: #333;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 24px;
+}
+
+/* Style du conteneur de l'en-tête */
+.header-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid #b0b0b0;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style principal */
+main {
+    background: white;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    line-height: 1.8;
+    margin-top: 40px; /* Espacement du texte de l'en-tête */
+}
+
+/* Image */
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    margin: 20px 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+img:hover {
+    transform: scale(1.1);
+}
+
+/* Liens sociaux sous l'image */
+.social-links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 10px 15px;
+    font-size: 18px;
+    color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #e0e0e0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    color: white;
+    background-color: #76c7c0;
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Formulaire de contact */
+form {
+    margin-top: 30px;
+}
+
+input, textarea {
+    width: 80%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+}
+
+button {
+    background-color: #76c7c0;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #5aa8a0;
+}
+
+/* Liste des compétences */
+.skills-list {
+    list-style: none;
+    padding: 0;
+}
+
+.skills-list li {
+    background: #f0f0f0; /* Plus clair */
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.skills-list li:hover {
+    background: #76c7c0;
+}
+
+/* Footer */
+footer {
+    font-size: 16px;
+    margin-top: 40px; /* Espacement du contenu et footer */
+}
+
+/* Effet de transition au survol */
+section:hover {
+    transform: scale(1.02);
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.image-container img {
+    width: 100%; /* Adjust the width to your preferred size */
+    height: auto; /* Maintains the aspect ratio */
+    border-radius: 10px;
+}

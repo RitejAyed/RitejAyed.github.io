@@ -1,0 +1,131 @@
+* {
+    font-family: 'Playfair Display', serif;
+}
+
+
+
+html, body {
+    background: url('https://i.pinimg.com/474x/a0/af/4d/a0af4d3f71b5a1efca16d4fb977ca505.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    border: 2px solid #ffb6dc;
+    background-color: #ffe4e1;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+header img {
+    width: 180px;
+    height: auto;
+    border-radius: 20px;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+header img:hover {
+    transform: scale(1.1);
+}
+
+
+h1 {
+    color: #ee6490;
+    margin: 0;
+}
+
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav a img {
+    width: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover img {
+    transform: scale(1.2);
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+
+
+
+
+section {
+    background: #fededa;
+    margin: 20px auto;
+    padding: 30px;
+    width: 80%;
+    max-width: 1200px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+
+.score {
+    background: #ffb6dc;
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    text-align: left;
+}
+
+.score:hover {
+    transform: scale(1.05);
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+button {
+    background: #ee6490;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.2s ease-in-out;
+}
+
+button:hover {
+    background: #d14f78;
+    transform: scale(1.05);
+}
+
+
+footer {
+    border: 2px solid #ffb6dc;
+    background-color: #ffe4e1;
+    padding: 20px;
+    border-radius: 20px;
+    margin : 10px;
+    text-align: center;
+}

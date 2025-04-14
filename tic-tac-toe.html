@@ -1,6 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>tic-tac-toe</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="tic-tac-toe.css">
 </head>
+<body>
+  <!-- Bouton de menu pour naviguer vers d'autres jeux -->
+  <div class="menu-button" id="menu-button" onclick="location.href='game.html'">MENU</div>
+  
+  <!-- Écran d'introduction -->
+  <div id="intro-screen" class="screen active">
+    <div class="title">Tic-Tac-Toe</div>
+    <div class="neon-button" id="start-button">TAP TO PLAY</div>
+  </div>
+  
+  <!-- Écran de sélection du mode de jeu -->
+  <div id="mode-screen" class="screen">
+    <div class="mode-container">
+      <div class="mode-option" id="player-vs-computer">
+        <div class="mode-icons">
+          <div class="icon person"></div>
+          <div class="vs">VS</div>
+          <div class="icon computer"></div>
+        </div>
+      </div>
+      <div class="mode-option" id="player-vs-player">
+        <div class="mode-icons">
+          <div class="icon person"></div>
+          <div class="vs">VS</div>
+          <div class="icon person"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Écran du jeu -->
+  <div id="game-screen" class="screen">
+    <div class="game-header">
+      <div class="player-info">
+        <div class="circle-icon"></div>
+        <div class="player-label">PLAYER</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="player-info">
+        <div class="x-icon"></div>
+        <div class="player-label" id="opponent-label">COMPUTER</div>
+      </div>
+    </div>
+    
+    <div class="game-board">
+      <div class="board-container">
+      	<!-- Each cell has a data-index attribute (0-8) to identify its position -->
+        <div class="board-cell" data-index="0"></div>
+        <div class="board-cell" data-index="1"></div>
+        <div class="board-cell" data-index="2"></div>
+        <div class="board-cell" data-index="3"></div>
+        <div class="board-cell" data-index="4"></div>
+        <div class="board-cell" data-index="5"></div>
+        <div class="board-cell" data-index="6"></div>
+        <div class="board-cell" data-index="7"></div>
+        <div class="board-cell" data-index="8"></div>
+        <div class="winning-line" id="winning-line"></div>
+      </div>
+    </div>
+    
+    <div class="game-controls">
+      <div class="control-button" id="restart-button">
+        <div class="restart-icon"></div>
+      </div>
+      <div class="control-button" id="menu-return">
+        <div class="settings-icon"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Écran du gagnant -->
+  <div id="winner-screen" class="screen">
+    <div class="winner-container">
+      <div class="winner-icon"></div>
+      <div class="winner-text">WINNER!</div>
+      <div class="play-again-button" id="play-again">PLAY AGAIN</div>
+    </div>
+  </div>
+  
+  <!-- Canvas for confetti animation when someone wins -->
+  <canvas id="confetti-canvas"></canvas>
+  <!-- Import the confetti library from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="tic-tac-toe.js"></script>
+</body>
+</html>

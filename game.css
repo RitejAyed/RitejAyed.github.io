@@ -1,162 +1,243 @@
+/* Base body styling */
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: white;
-    text-align: center;
-    overflow: hidden;
+    font-family: 'Poppins', sans-serif; /* Sets the primary font for the entire page */
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Creates a dark purple gradient background */
+    color: white; /* Sets text color to white */
+    text-align: center; /* Centers all text content */
+    min-height: 100vh; /* Ensures body takes at least full viewport height */
+    display: flex; /* Enables flexbox layout */
+    flex-direction: column; /* Arranges children elements vertically */
+    position: relative; /* Sets positioning context for absolute children */
 }
 
+/* Creates an inner shadow effect around the edges of the page */
+body::after {
+    content: ''; /* Required for pseudo-elements */
+    position: fixed; /* Stays in place when scrolling */
+    top: 0; /* Aligns to top edge */
+    left: 0; /* Aligns to left edge */
+    width: 100%; /* Takes full width */
+    height: 100%; /* Takes full height */
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.5); /* Creates inner shadow effect */
+    pointer-events: none; /* Makes element non-interactive so clicks pass through */
+}
+
+/* Header styling */
 header {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 28px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    padding: 20px; /* Space inside the header */
+    font-size: 28px; /* Text size */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* Shadow below header */
+    text-transform: uppercase; /* Makes all text uppercase */
+    letter-spacing: 2px; /* Adds space between letters */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Gives text a glowing effect */
 }
 
+/* Animates the header title */
+header h1 {
+    animation: pulse 2s infinite /* Applies the pulse animation defined at bottom */
+}
+
+/* Container for game launch buttons */
 #launcher {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin: 50px auto;
-    max-width: 900px;
+    display: flex; /* Uses flexbox layout */
+    flex-wrap: wrap; /* Allows items to wrap to next line */
+    justify-content: center; /* Centers items horizontally */
+    gap: 30px; /* Space between items */
+    margin: 50px auto; /* Vertical margin 50px, horizontally centered */
+    max-width: 900px; /* Prevents container from becoming too wide */
 }
+
+/* Generic button styling */
 button {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    border: none;
-    padding: 15px 35px;
-    font-size: 20px;
-    color: white;
-    cursor: pointer;
-    border-radius: 12px;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    box-shadow: 0 5px 15px rgba(255, 0, 100, 0.5);
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b); /* Red/orange gradient background */
+    border: none; /* Removes default border */
+    padding: 20px; /* Space inside buttons */
+    font-size: 20px; /* Text size */
+    color: white; /* Text color */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    border-radius: 12px; /* Rounds corners */
+    transition: 0.3s; /* Smooth transition for hover effects */
+    display: flex; /* Uses flexbox for content alignment */
+    flex-direction: column; /* Stacks content vertically */
+    align-items: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
+    gap: 12px; /* Space between child elements */
+    box-shadow: 0 5px 15px rgba(255, 0, 100, 0.5); /* Adds pink glow effect */
+    position: relative; /* For positioning pseudo-elements */
+    overflow: hidden; /* Clips content that extends beyond borders */
 }
 
+/* Specific sizing for launcher buttons */
+#launcher button {
+    width: 250px; /* Fixed width */
+    height: 300px; /* Fixed height - makes it rectangular, not square as commented */
+}
+
+/* Style for actively pressed buttons */
+#launcher button:active {
+    transform: scale(0.95); /* Slightly shrinks button */
+    box-shadow: 0 2px 10px rgba(255, 0, 100, 0.3); /* Reduces shadow */
+    transition: transform 0.1s ease, box-shadow 0.1s ease; /* Makes press animation faster */
+}
+
+/* Creates ripple effect pseudo-element */
 button::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(0);
-    transition: transform 0.3s ease-in-out;
-    border-radius: 50%;
+    content: ''; /* Required for pseudo-elements */
+    position: absolute; /* Positions relative to button */
+    width: 100%; /* Full width of button */
+    height: 100%; /* Full height of button */
+    top: 0; /* Aligns to top */
+    left: 0; /* Aligns to left */
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    transform: scale(0); /* Initially invisible (scaled to nothing) */
+    transition: transform 0.3s ease-in-out; /* Smooth animation */
+    border-radius: 50%; /* Makes it circular */
 }
+
+/* Activates ripple effect on hover */
 button:hover::before {
-    transform: scale(2);
-    opacity: 0;
+    transform: scale(2); /* Grows ripple effect */
+    opacity: 0; /* Fades out */
 }
 
+/* Styling for images within buttons */
 button img {
-    width: 45px;
-    height: 45px;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
-    border-radius: 12px;
+    width: 200px; /* Image width */
+    height: 200px; /* Image height */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)); /* Adds glowing effect */
+    border-radius: 12px; /* Rounds corners */
+    margin-bottom: 10px; /* Space below image */
 }
 
+/* Button hover effect */
 button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(255, 0, 100, 0.7);
+    transform: scale(1.1); /* Enlarges button */
+    box-shadow: 0 8px 20px rgba(255, 0, 100, 0.7); /* Enhances glow effect */
 }
 
+/* Text inside buttons */
+button span {
+    font-family: 'Orbitron', sans-serif; /* Gaming/sci-fi font */
+    font-weight: bold; /* Makes text bold */
+    letter-spacing: 1px; /* Spaces letters apart */
+    text-transform: uppercase; /* Converts text to uppercase */
+}
+
+/* Footer styling */
 footer {
-    margin-top: 50px;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 15px;
-    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.4);
-    display: flex;
-
+    margin-top: auto; /* Pushes footer to bottom */
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+    padding: 15px; /* Space inside footer */
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.4); /* Shadow above footer */
+    width: 100%; /* Full width */
+    height: 80px; /* Fixed height */
 }
 
+/* About section container */
 #about {
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+    margin-top: auto; /* Pushes section to bottom before footer */
+    display: flex; /* Uses flexbox */
+    justify-content: center; /* Centers horizontally */
+    padding: 20px; /* Space around content */
 }
 
+/* About button styling - different from game buttons */
 #about button {
-    background: transparent;
-    border: 2px solid white;
-    font-size: 18px;
-    padding: 12px 25px;
-    transition: 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    background: transparent; /* Clear background */
+    border: 2px solid white; /* White border */
+    font-size: 18px; /* Text size */
+    padding: 12px 25px; /* Space inside button */
+    transition: 0.3s; /* Smooth hover transition */
+    text-transform: uppercase; /* Makes text uppercase */
+    letter-spacing: 1px; /* Spaces letters apart */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Subtle glow */
 }
 
+/* About button hover effect */
 #about button:hover {
-    background: white;
-    color: #0f0c29;
+    background: white; /* White background */
+    color: #0f0c29; /* Dark purple text */
 }
 
+/* Menu tab that opens sidebar */
 .menu-tab {
-    position: fixed;
-    top: 0%;
-    left: 0;
-    width: 60px;
-    height: 60px;
-    background-color: #ff4b2b;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    z-index: 1001; 
-    box-shadow: 0 5px 15px rgba(255, 0, 100, 0.5);
+    position: fixed; /* Stays in place when scrolling */
+    top: 0%; /* Aligns to top */
+    left: 0; /* Aligns to left edge */
+    width: 60px; /* Width */
+    height: 60px; /* Height */
+    background-color: #ff4b2b; /* Orange-red background */
+    color: white; /* Text color */
+    display: flex; /* Uses flexbox */
+    align-items: center; /* Centers vertically */
+    justify-content: center; /* Centers horizontally */
+    cursor: pointer; /* Changes cursor to pointer */
+    border-top-right-radius: 5px; /* Rounds top-right corner */
+    border-bottom-right-radius: 5px; /* Rounds bottom-right corner */
+    z-index: 1001; /* Places above sidebar */
+    box-shadow: 0 5px 15px rgba(255, 0, 100, 0.5); /* Adds glow effect */
 }
 
+/* Sidebar navigation menu */
 .sidebar {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: -250px; 
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    transition: left 0.3s;
-    z-index: 1000;
-    display: flex; 
-    flex-direction: column;
+    height: 100%; /* Full height */
+    width: 250px; /* Width */
+    position: fixed; /* Stays in place when scrolling */
+    top: 0; /* Aligns to top */
+    left: -250px; /* Initially hidden off-screen */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+    color: white; /* Text color */
+    transition: left 0.3s; /* Smooth animation */
+    z-index: 1000; /* Stacking order */
+    display: flex; /* Uses flexbox */
+    flex-direction: column; /* Arranges items vertically */
 }
 
+/* Sidebar navigation links */
 .sidebar a {
-    padding: 15px;
-    text-decoration: none;
-    color: white;
-    display: block;
+    padding: 15px; /* Space inside links */
+    text-decoration: none; /* Removes underline */
+    color: white; /* Text color */
+    display: block; /* Makes links fill width */
+    font-size: 25px; /* Text size */
 }
 
+/* Sidebar link hover effect */
 .sidebar a:hover {
-    background-color: #555;
+    background-color: #555; /* Darker gray background */
 }
 
+/* Container for sidebar links */
 .list {
-    margin-top: 30%;
+    margin-top: 35%; /* Space from top of sidebar */
 }
 
+/* Main content area */
 #content {
-    margin-left: 20px;
-    padding: 20px;
+    margin-left: 20px; /* Space from left edge */
+    padding: 20px; /* Space around content */
 }
 
+/* Class added to sidebar when it's open */
 .sidebar.open {
-    left: 0; 
+    left: 0; /* Moves sidebar on-screen */
+}
+
+/* Animation for pulsing effect */
+@keyframes pulse {
+    0% {
+        transform: scale(1); /* Normal size */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Normal glow */
+    }
+    50% {
+        transform: scale(1.05); /* Slightly larger */
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1); /* Brighter glow */
+    }
+    100% {
+        transform: scale(1); /* Back to normal size */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Normal glow again */
+    }
 }

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It's me, Rania!</title>
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .header-container {
+            background-color: #e0e0e0; 
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .footer {
+            background-color: #e0e0e0; /* Lighter grey for footer */
+            color: #333;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            text-decoration: none;
+            color: #76c7c0;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin: 20px 0;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        img:hover {
+            transform: scale(1.1);
+        }
+
+        .social-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .social-links a {
+            margin: 0 15px;
+            font-size: 18px;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #76c7c0;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        input, textarea {
+            width: 80%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #777;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #6b6c6a;
+        }
+
+        button {
+            background-color: #76c7c0;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #5aa8a0;
+        }
+    </style>
+</head>
+<body> 
+    <div class="header-container">
+        <header>
+            <h1>GOOOOOD MORNING, VIETNAM!</h1>
+        </header>
+    </div>
+    
+    <main>
+        <div class="image-container">
+            <img src="panoramaa.jpg" alt="pano">
+        </div>
+        
+    </div>
+        
+        <h1>Hi! My name is <mark>Rania Baha</mark>.</h1>
+        <p>As a student pursuing a double degree in Computer Science and Business Management at the 
+            <b><u><span style="color:#76c7c0">University Toulouse Capitole</span></u></b>, I am dedicated to academic excellence and gaining enriching professional experiences. 
+            These experiences help me strengthen my skills in communication, organization, and problem-solving. With a passion for strategic 
+            thinking and making informed decisions, I aspire to work in an environment that challenges me, where I can fully leverage my analytical abilities 
+            and global perspective on contemporary issues, while contributing to innovative and impactful projects.
+        </p>
+        
+        <div class="social-links">
+            <a id="instagram" href="https://www.instagram.com" target="_blank">Instagram</a>
+            <a id="twitter" href="https://www.twitter.com" target="_blank">Twitter</a>
+            <a id="linkedin" href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+        
+        <details>
+            <summary>More about me...</summary>
+            <p>As a student in a rigorous double degree program in Computer Science (MIASHS) and Business Management at the University of Toulouse Capitole, I am committed to bridging technical expertise with strategic business acumen. 
+                My academic journey reflects a strong dedication to achieving excellence through a multidisciplinary approach, fostering a deep understanding of both analytical methodologies and organizational dynamics. </p>
+        </details>
+        <br>
+        <p><u>My professional CV</u></p>
+        <button onclick="window.location.href='RBFE.pdf'">My CV in French and English</button>
+
+        
+        <h3>Soft Skills</h3>
+        <ul class="skills-list">
+            <li>Communication</li>
+            <li>Teamwork</li>
+            <li>Problem-solving</li>
+        </ul>
+        
+        <h3>Hard Skills</h3>
+        <ul class="skills-list">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>Java</li>
+        </ul>
+        <br>
+        
+        <p><b><u>Contact me :</u></b></p>
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message"></textarea>
+            </div>
+            
+            <button type="submit">Send</button>
+        </form>
+        
+    </main>
+    
+    <footer class="footer">
+        <p>© 2025 My Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>
